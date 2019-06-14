@@ -32,5 +32,6 @@ jobs:
           name: Run all tests
           command: |
               docker-compose build
+              docker-compose run --entrypoint app ls /webapp/
               docker-compose run app php /webapp/artisan migrate
               docker-compose run app vendor/bin/phpunit
