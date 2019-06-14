@@ -49,13 +49,11 @@ jobs:
               docker-compose -f docker-compose.ci.yml up -d
               docker-compose -f docker-compose.ci.yml run app php artisan config:cache --env testing
 
-              for i in `seq 1 10`;
+              for i in `seq 1 20`
               do
-                nc -z 127.0.0.1 3306 && echo Success && exit 0
-                echo -n .
-                sleep 1
+                docker-compose -f docker-compose.ci.yml db_testing mysqladmin --protocol=socket ping && break
+                sleep 5
               done
-              echo Failed waiting for MySQL && exit 1
 
               docker-compose -f docker-compose.ci.yml run app php artisan migrate --force
               docker-compose -f docker-compose.ci.yml run app vendor/bin/phpunit
