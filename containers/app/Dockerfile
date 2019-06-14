@@ -24,8 +24,12 @@ RUN mkdir -p /webapp
 WORKDIR /webapp
 
 RUN mkdir -p bootstrap/cache \
-    && mkdir -p storage/{app,logs,framework} \
-    && mkdir -p storage/framework/{views,sessions,cache,testing}
+    && mkdir -p storage/app \
+    && mkdir -p storage/framework/cache \
+    && mkdir -p storage/framework/sessions \
+    && mkdir -p storage/framework/testing \
+    && mkdir -p storage/framework/views \
+    && mkdir -p storage/logs
 
 COPY composer.* /webapp/
 RUN composer install --no-autoloader
@@ -39,11 +43,6 @@ RUN composer dump-autoload
 VOLUME \
     "/webapp/bootstrap/cache" \
     "/webapp/node_modules" \
-    "/webapp/storage/app" \
-    "/webapp/storage/framework/cache" \
-    "/webapp/storage/framework/sessions" \
-    "/webapp/storage/framework/testing" \
-    "/webapp/storage/framework/views" \
-    "/webapp/storage/logs" \
+    "/webapp/storage" \
     "/webapp/vendor"
 
