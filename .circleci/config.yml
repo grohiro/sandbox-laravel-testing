@@ -31,6 +31,11 @@ jobs:
       - run:
           name: Run all tests
           command: |
+              hostname
+              pwd
+              ls .
+              ls /
+              cat docker-compose.yml
               docker-compose build
               docker-compose run --entrypoint ls app /webapp/
               docker-compose run app php /webapp/artisan migrate
