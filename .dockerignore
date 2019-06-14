@@ -3,7 +3,7 @@ node_modules/
 vendor/
 
 .env
-.vimrc
+.vimrc.local
 
 bootstrap/cache/*
 storage/app/*
