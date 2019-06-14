@@ -31,7 +31,10 @@ jobs:
       - run:
           name: Run all tests
           command: |
+              pwd
+              ls -al
               docker-compose -f docker-compose.ci.yml build
+              docker-compose -f docker-compose.ci.yml run --entrypoint ls app -a /webapp
               docker-compose -f docker-compose.ci.yml run app php artisan --env testing migrate --force
               docker-compose -f docker-compose.ci.yml run app vendor/bin/phpunit
 
