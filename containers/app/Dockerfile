@@ -23,13 +23,13 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN mkdir -p /webapp
 WORKDIR /webapp
 
-RUN mkdir -p bootstrap/cache \
-    && mkdir -p storage/app \
-    && mkdir -p storage/framework/cache \
-    && mkdir -p storage/framework/sessions \
-    && mkdir -p storage/framework/testing \
-    && mkdir -p storage/framework/views \
-    && mkdir -p storage/logs
+#RUN mkdir -p bootstrap/cache \
+    #&& mkdir -p storage/app \
+    #&& mkdir -p storage/framework/cache \
+    #&& mkdir -p storage/framework/sessions \
+    #&& mkdir -p storage/framework/testing \
+    #&& mkdir -p storage/framework/views \
+    #&& mkdir -p storage/logs
 
 COPY composer.* /webapp/
 RUN composer install --no-autoloader
