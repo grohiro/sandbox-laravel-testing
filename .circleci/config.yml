@@ -51,6 +51,7 @@ jobs:
 
       - run:
           name: Run tests
+          command: |
               docker-compose -f docker-compose.ci.yml run app php artisan migrate --force
               docker-compose -f docker-compose.ci.yml run app vendor/bin/phpunit
 
