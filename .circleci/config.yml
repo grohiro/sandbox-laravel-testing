@@ -37,5 +37,3 @@ jobs:
           command: |
             docker-compose run app php artisan migrate
             docker-compose run app vendor/bin/phpunit
-
-      - deploy:
