@@ -34,5 +34,5 @@ RUN composer dump-autoload \
     && php artisan config:cache \
     && php artisan optimize
 
-VOLUME ["/webapp/vendor" "/webapp/node_modules"]
+VOLUME "/webapp/vendor" "/webapp/node_modules"
 

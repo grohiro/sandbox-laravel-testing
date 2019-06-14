@@ -36,7 +36,6 @@ jobs:
               ls .
               ls /
               cat docker-compose.yml
-              docker-compose build
-              docker-compose run --entrypoint ls app /webapp/
-              docker-compose run app php /webapp/artisan migrate
-              docker-compose run app vendor/bin/phpunit
+              docker-compose -f docker-compose.ci.yml build
+              docker-compose -f docker-compose.ci.yml run app php /webapp/artisan migrate
+              docker-compose -f docker-compose.ci.yml run app vendor/bin/phpunit
