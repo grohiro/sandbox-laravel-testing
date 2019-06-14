@@ -49,9 +49,20 @@ jobs:
               docker-compose -f docker-compose.ci.yml up -d
               docker-compose -f docker-compose.ci.yml run app php artisan config:cache --env testing
 
+              #- run:
+              #name: Wait for MySQL
+              #command: dockerize -wait tcp://localhost:3306 -timeout 1m
+
       - run:
-          name: Wait for MySQL
-          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+        name: Waiting for MySQL to be ready
+        command: |
+          for i in `seq 1 10`;
+          do
+          nc -z 127.0.0.1 3306 && echo Success && exit 0
+          echo -n .
+          sleep 1
+          done
+          echo Failed waiting for MySQL && exit 1
 
       - run:
           name: Run tests
