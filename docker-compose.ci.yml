@@ -6,14 +6,22 @@ services:
     build:
       context: .
       dockerfile: ./containers/app/Dockerfile
+    volumes:
+      - bootstrap_cache:/webapp/bootstrap/cache
     depends_on:
       - db_testing
 
   db_testing:
     image: mysql:5.7
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: laravel_testing
       MYSQL_PASSWORD: laravel_testing
       MYSQL_DATABASE: laravel_testing
+
+volumes:
+  mysql:
+  bootstrap_cache:
