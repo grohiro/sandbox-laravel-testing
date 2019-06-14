@@ -38,3 +38,4 @@ VOLUME \
     "/webapp/storage" \
     "/webapp/vendor"
 
+EXPOSE 3306

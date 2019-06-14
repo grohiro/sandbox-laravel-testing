@@ -29,10 +29,28 @@ jobs:
             chmod +x /usr/local/bin/docker-compose
 
       - run:
-          name: Run all tests
+          name: install dockerize
+          command: wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+
+      - run:
+          name: Build container
           command: |
               docker-compose -f docker-compose.ci.yml build
+
+      - run:
+          name: Up all containers
+          command: |
+              docker-compose -f docker-compose.ci.yml up -d
               docker-compose -f docker-compose.ci.yml run app php artisan config:cache --env testing
+
+      - run:
+          name: Wait for MySQL
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
+
+      - run:
+          name: Run tests
               docker-compose -f docker-compose.ci.yml run app php artisan migrate --force
               docker-compose -f docker-compose.ci.yml run app vendor/bin/phpunit
 
