@@ -30,9 +30,7 @@ COPY package.* /webapp/
 RUN npm install
 
 COPY . /webapp/
-RUN composer dump-autoload \
-    && php artisan config:cache \
-    && php artisan optimize
+RUN composer dump-autoload
 
 VOLUME "/webapp/vendor" "/webapp/node_modules"
 
