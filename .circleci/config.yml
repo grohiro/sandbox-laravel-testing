@@ -29,11 +29,8 @@ jobs:
             chmod +x /usr/local/bin/docker-compose
 
       - run:
-          name: Build service
-          command: docker-compose build
-
-      - run:
-          name: Start container and verify it's working
+          name: Run all tests
           command: |
-            docker-compose run app php artisan migrate
-            docker-compose run app vendor/bin/phpunit
+              docker-compose build
+              docker-compose run app php /webapp/artisan migrate
+              docker-compose run app vendor/bin/phpunit
