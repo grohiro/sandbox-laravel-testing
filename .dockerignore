@@ -2,5 +2,14 @@
 node_modules/
 vendor/
 
-storage/
+.env
+.vimrc.local
+
+bootstrap/cache/*
+storage/app/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+storage/storage/logs/*
 
