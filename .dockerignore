@@ -2,4 +2,9 @@
 node_modules/
 vendor/
 
+.env
+.vimrc
+
 storage/
+bootstrap/cache
+

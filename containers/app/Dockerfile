@@ -23,6 +23,10 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN mkdir -p /webapp
 WORKDIR /webapp
 
+RUN mkdir -p bootstrap/cache \
+    && mkdir -p storage/{app,logs,framework} \
+    && mkdir -p storage/framework/{views,sessions,cache,testing}
+
 COPY composer.* /webapp/
 RUN composer install --no-autoloader
 
@@ -32,5 +36,14 @@ RUN npm install
 COPY . /webapp/
 RUN composer dump-autoload
 
-VOLUME "/webapp/vendor" "/webapp/node_modules"
+VOLUME \
+    "/webapp/bootstrap/cache" \
+    "/webapp/node_modules" \
+    "/webapp/storage/app" \
+    "/webapp/storage/framework/cache" \
+    "/webapp/storage/framework/sessions" \
+    "/webapp/storage/framework/testing" \
+    "/webapp/storage/framework/views" \
+    "/webapp/storage/logs" \
+    "/webapp/vendor"
 
