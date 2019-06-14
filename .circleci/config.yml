@@ -33,8 +33,8 @@ jobs:
           command: |
               docker-compose -f docker-compose.ci.yml build
               docker-compose -f docker-compose.ci.yml up -d
-              docker-compose -f docker-compose.ci.yml run app php artisan --env testing config:cache
               docker-compose -f docker-compose.ci.yml run app php artisan optimize
+              docker-compose -f docker-compose.ci.yml run app php artisan config:cache --env testing
               docker-compose -f docker-compose.ci.yml run app php artisan migrate --force
               docker-compose -f docker-compose.ci.yml run app vendor/bin/phpunit
 
