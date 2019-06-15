@@ -10,20 +10,21 @@ build:
         - docker
     script:
         - docker-compose build
-    test:
-        stage: test
-        tags:
-            - docker
-        script:
-            - docker-compose -f docker-compose.ci.yml up -d
-            - docker-compose -f docker-compose.ci.yml run app php artisan config:cache --env testing
-            - |
-              for i in `seq 1 20`
-              do
-                  docker-compose -f docker-compose.ci.yml exec db_testing mysqladmin --protocol=socket -uroot -proot ping && break
-                  echo -n . 
-                  sleep 5
-              done
-              echo
-            - docker-compose -f docker-compose.ci.yml run app php artisan migrate --force
-            - docker-compose -f docker-compose.ci.yml run app vendor/bin/phpunit
+test:
+    stage: test
+    tags:
+        - docker
+    script:
+        - docker-compose -f docker-compose.ci.yml up -d
+        - docker-compose -f docker-compose.ci.yml run app php artisan config:cache --env testing
+        - |
+          for i in `seq 1 20`
+          do
+              docker-compose -f docker-compose.ci.yml exec db_testing mysqladmin --protocol=socket -uroot -proot ping && break
+              echo -n . 
+              sleep 5
+          done
+          echo
+        - docker-compose -f docker-compose.ci.yml run app php artisan migrate --force
+        - docker-compose -f docker-compose.ci.yml run app vendor/bin/phpunit
+
